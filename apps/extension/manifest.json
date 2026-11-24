@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "AnkiSuperSupporter — Grok & Gemini Plain-Text Sender",
+  "version": "1.0.0",
+  "description": "Gửi mẫu câu thuần text (bỏ định dạng HTML) từ Grok, Gemini và mọi trang web vào trường Example (EN), Example (VI) hoặc Word của AnkiSuperSupporter.",
+  "permissions": [
+    "contextMenus",
+    "storage",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1/*",
+    "http://localhost/*",
+    "https://dictionary.cambridge.org/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AnkiSuperSupporter Sender"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/shared.js", "content/floating-bar.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["http://localhost/*", "http://127.0.0.1/*"],
+      "js": ["content/studio-bridge.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://dictionary.cambridge.org/*"],
+      "js": ["content/parsers/cambridge.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.oxfordlearnersdictionaries.com/*"],
+      "js": ["content/parsers/oxford.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.weblio.jp/*"],
+      "js": ["content/parsers/weblio.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://elevenlabs.io/*"],
+      "js": ["content/elevenlabs-handoff.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

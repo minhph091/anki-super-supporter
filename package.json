@@ -1,0 +1,21 @@
+{
+  "name": "anki-super-supporter",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/server",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c cyan,magenta \"npm --workspace @ass/server run dev\" \"npm --workspace @ass/web run dev\"",
+    "dev:server": "npm --workspace @ass/server run dev",
+    "dev:web": "npm --workspace @ass/web run dev",
+    "build": "npm --workspace @ass/shared run build && npm --workspace @ass/server run build && npm --workspace @ass/web run build",
+    "test": "npm --workspace @ass/server run test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.8.2"
+  }
+}
